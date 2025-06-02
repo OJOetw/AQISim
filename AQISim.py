@@ -1,11 +1,13 @@
 wind_speed_input = int(input("Enter the wind speed(km/h): "))
 factory_emission_level_input = int(input("Enter the factory emmision level(0~10): "))
-traffic_volume_input = int(input("Enter traffic volume: "))
-raining_input = input("Is it raining?(y/n):　")
+traffic_volume_input = input("Enter traffic volume: ").lower()
+raining_input = input("Is it raining?(y/n):　").lower() == "y"
 number_of_simulation_days_input = int(input("number of simulation days: "))
 
 
-def simulate_pm25(wind_speed_input, factory_emission_level_input, tracffic_volume_input, raining_input, number_of_simulation_days_input):
+def simulate_pm25(wind_speed_input, factory_emission_level_input,
+                  traffic_volume_input, raining_input,
+                  number_of_simulation_days_input):
     pm25 = 50
     record = []
 
@@ -14,7 +16,7 @@ def simulate_pm25(wind_speed_input, factory_emission_level_input, tracffic_volum
 
         if wind_speed_input > 15:
             change -= 10
-        elif windZ_speed_input < 5:
+        elif wind_speed_input < 5:
             change += 5
 
         change += factory_emission_level_input * 2
@@ -31,8 +33,22 @@ def simulate_pm25(wind_speed_input, factory_emission_level_input, tracffic_volum
             change -= 8
 
 
-        pm25 = max(0. pm25 + change)
-        record.append(day, pm25)
+
+        pm25 = max(0, pm25 + change)
+        record.append((day, pm25))
+
+    return record
+
+
+result = simulate_pm25(wind_speed_input,
+                      factory_emission_level_input,
+                      traffic_volume_input, raining_input,
+                      number_of_simulation_days_input)
+print("simulation result: ")
+
+for day, value in result:
+    print(f"Day {day}: PM2.5 = {value} μg/m³")
+
 
 
 
