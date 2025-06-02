@@ -49,7 +49,21 @@ result = simulate_pm25(wind_speed_input,
                       number_of_simulation_days_input)
 print("simulation result: ")
 
-for day, value in result:
-    #result(day,pm25)
-    print(f"Day {day}: PM2.5 = {value} μg/m³")
 
+try:
+    
+    with open("result.txt", "w", encoding="utf-8") as file:
+        #用a不是w的話，就會變成每筆資料新增在前一筆後面(append)
+        for day, value in result:
+            #result(day,pm25)
+            if value > 80:
+                line = f"⚠️ Day {day}: PM2.5 = {value} μg/m³ → Unhealthy\n"
+            else:
+                line = f"Day {day}: PM2.5 = {value} μg/m³\n"
+
+            print(line)
+            file.write(line)
+except Exception as e:
+    print("Error", e)
+
+input("\npress Enter to leave")
