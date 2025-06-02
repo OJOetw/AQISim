@@ -10,7 +10,6 @@ def simulate_pm25(wind_speed_input, factory_emission_level_input,
                   number_of_simulation_days_input):
     pm25 = 50
     record = []
-
     for day in range(1, number_of_simulation_days_input + 1):
         change = 0
         #change是pm25的變化量
@@ -22,7 +21,6 @@ def simulate_pm25(wind_speed_input, factory_emission_level_input,
 
         change += factory_emission_level_input * 2
 
-
         if traffic_volume_input == "high":
             change += 7
         elif traffic_volume_input == "medium":
@@ -32,8 +30,6 @@ def simulate_pm25(wind_speed_input, factory_emission_level_input,
 
         if raining_input:
             change -= 8
-
-
 
         pm25 = max(0, pm25 + change)
               #確保低於0時，會顯示0不會顯示負數
@@ -48,7 +44,6 @@ result = simulate_pm25(wind_speed_input,
                       traffic_volume_input, raining_input,
                       number_of_simulation_days_input)
 print("simulation result: ")
-
 
 try:
     
